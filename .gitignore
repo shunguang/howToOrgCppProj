@@ -1,0 +1,40 @@
+## Ignored folders
+[Dd]ebug/
+[Dd]ebug-mex/
+[Dd]ebug-DLL/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]elease-mex/
+[Rr]elease-DLL/
+x64/
+x86/
+build*/
+.vs/
+.vscode/
+
+## Ignored files
+*.kml
+*.kmz
+*_i.c
+*_p.c
+*_i.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.bak
+*.exe
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates

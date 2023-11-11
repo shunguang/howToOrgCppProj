@@ -1,0 +1,6 @@
+[submodule "pkg/spdlog"]
+	path = pkg/spdlog
+	url = https://github.com/shunguang/spdlog.git
+[submodule "pkg/crossguid"]
+	path = pkg/crossguid
+	url = https://github.com/shunguang/crossguid.git
