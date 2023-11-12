@@ -1,3 +1,4 @@
+message("\n BEG: src/libLog/CMakeLists.txt:")
 ########################################################################
 # version requirements
 ########################################################################
@@ -13,37 +14,37 @@ endif()
 ########################################################################
 #  Project Setup
 ########################################################################
-set(target appLog)
+set(target Log)
 cmake_minimum_required(VERSION ${required_cmake_ver})
 project(${target} LANGUAGES CXX C)
 set(CMAKE_CXX_STANDARD ${required_cxx_ver})
 
 ########################################################################
-# figure out pkg_dir, pkg_lib_dir, and pkg_bin_dir, 
-#            app_src_dir, app_lib_dir, and appbin_dir
+# figure out pkg_root_dir, pkg_lib_dir, and pkg_bin_dir, 
+#            src_root_dir, src_lib_dir, and appbin_dir
 ########################################################################
-if(NOT DEFINED pkg_dir)
-   #build from howToOrgCppProj/src/build
-	set(pkg_dir "${CMAKE_CURRENT_SOURCE_DIR}/../../pkg" ) #howToOrgCppProj/pkg
-	set(pkg_lib_dir "${pkg_dir}/build/lib")		         #howToOrgCppProj/pkg/build/lib
-	set(pkg_bin_dir "${pkg_dir}/build/bin")		         #howToOrgCppProj/pkg/build/bin
-	file( GLOB pkg_inc_dirs
-		${pkg_dir}/spdlog/include 
-	 )
+if(NOT DEFINED pkg_root_dir)
+   #build from howToOrgCppProj/src/libLog/build
+	set(pkg_root_dir "${CMAKE_CURRENT_SOURCE_DIR}/../../pkg" ) #howToOrgCppProj/pkg
+	set(pkg_lib_dir "${pkg_root_dir}/build/lib")		         #howToOrgCppProj/pkg/build/lib
+	set(pkg_bin_dir "${pkg_root_dir}/build/bin")		         #howToOrgCppProj/pkg/build/bin
+	set(pkg_inc_dirs "${pkg_root_dir}/spdlog/include")         #libLog only depends on spdlog
 
-   message(pkg_dir="${pkg_dir}")
-   message(pkg_lib_dir="${pkg_lib_dir}")
-   message(pkg_bin_dir="${pkg_bin_dir}")  
+   message(pkg_root_dir=${pkg_root_dir})
+   message(pkg_lib_dir=${pkg_lib_dir})
+   message(pkg_bin_dir=${pkg_bin_dir})  
+   message(pkg_inc_dirs=${pkg_inc_dirs})  
 endif()
-if(NOT DEFINED app_src_dir)
-   #build from howToOrgCppProj/src/build
-	set(app_src_dir "${CMAKE_CURRENT_SOURCE_DIR}/.." )
-   set(app_lib_dir "${PROJECT_BINARY_DIR}/lib")
-   set(app_bin_dir "${PROJECT_BINARY_DIR}/bin")
-	message(app_src_dir="${app_src_dir}")
-	message(app_lib_dir="${app_lib_dir}")
-	message(app_bin_dir="${app_bin_dir}")
+if(NOT DEFINED src_root_dir)
+   #build from howToOrgCppProj/src/libLog/build
+	set(src_root_dir "${CMAKE_CURRENT_SOURCE_DIR}/.." )
+   set(src_lib_dir "${PROJECT_BINARY_DIR}/lib")
+   set(src_bin_dir "${PROJECT_BINARY_DIR}/bin")
+   message(src_root_dir=${src_root_dir})
+   message(src_lib_dir=${src_lib_dir})
+   message(src_bin_dir=${src_bin_dir}) 
 endif()
+
 
 
 # CMAKE_ARCHIVE_OUTPUT_DIRECTORY control the output dir of static libs
@@ -58,7 +59,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${src_bin_dir}")
 if(NOT CMAKE_BUILD_TYPE)
    set(CMAKE_BUILD_TYPE "Release")
    message(STATUS "Build type not specified: defaulting to release.")
-endif(NOT CMAKE_BUILD_TYPE)
+endif()
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 message(STATUS ${CMAKE_BUILD_TYPE})
 
@@ -80,9 +81,10 @@ add_library(${target} STATIC
 ########################################################################
 target_include_directories(${target} PUBLIC
    ${pkg_inc_dirs}    #all dependent folders in howToOrgCppProj/pkg
-   ${app_src_dir}     #howToOrgCppProj/src
+   ${src_root_dir}     #howToOrgCppProj/src
 )
 
 if (APPLOG_TESTS)
    add_subdirectory(test)
 endif()
+message("\n END: src/libLog/CMakeLists.txt")

@@ -1,3 +1,4 @@
+message("\n BEG: src/CMakeLists.txt")
 ########################################################################
 #  Project Setup
 ########################################################################
@@ -28,51 +29,47 @@ message(STATUS ${CMAKE_BUILD_TYPE})
 
 
 ########################################################################
-#global variables: top level defined variables can be see by all subfolders
+# figure out pkg_root_dir, pkg_lib_dir, and pkg_bin_dir, 
+#            src_root_dir, src_lib_dir, and appbin_dir
 ########################################################################
-if(NOT DEFINED app_src_dir)
-	set(app_src_dir "${CMAKE_CURRENT_SOURCE_DIR}")
-	message(app_src_dir="${app_src_dir}")
+if(NOT DEFINED src_root_dir)
+	set(src_root_dir "${CMAKE_CURRENT_SOURCE_DIR}")
+    set(src_lib_dir "${PROJECT_BINARY_DIR}/lib")
+    set(src_bin_dir "${PROJECT_BINARY_DIR}/bin")
+
+	message(src_root_dir=${src_root_dir})
+    message(src_lib_dir=${src_lib_dir})
+    message(src_bin_dir=${src_bin_dir})
 endif()
 
-if(NOT DEFINED app_lib_dir)
-    set(app_lib_dir "${PROJECT_BINARY_DIR}/lib")
-    message(app_lib_dir="${app_lib_dir}")
-endif()
-
-if(NOT DEFINED app_bin_dir)
-    set(app_bin_dir "${PROJECT_BINARY_DIR}/bin")
-    message(app_bin_dir="${app_bin_dir}")
-endif()
-
-
-if(NOT DEFINED pkg_dir)
+if(NOT DEFINED pkg_root_dir)
 	#if reached here, it means you want to seperately build pkg/ and howToOrgCppProj/src.
 	#we require you build pkg/ first, and hence 
 	#  howToOrgCppProj/pkg/build/ 
 	#was already created and its subfolders and files are valid
-	message("pkg_dir is not defined, we redfines them:")
+	message("pkg_root_dir is not defined, we redfines them:")
 	
-	set(pkg_dir "${app_src_dir}/../pkg")		#howToOrgCppProj/pkg
-	set(pkg_lib_dir "${pkg_dir}/build/lib")		#howToOrgCppProj/pkg/build/lib
-	set(pkg_bin_dir "${pkg_dir}/build/bin")		#howToOrgCppProj/pkg/build/bin
-	file( GLOB pkg_inc_dirs
-		${pkg_dir}/spdlog/include 
-		${pkg_dir}/crossguid/include
-	 )
+	set(pkg_root_dir "${src_root_dir}/../pkg")		#howToOrgCppProj/pkg
+	set(pkg_lib_dir "${pkg_root_dir}/build/lib")		#howToOrgCppProj/pkg/build/lib
+	set(pkg_bin_dir "${pkg_root_dir}/build/bin")		#howToOrgCppProj/pkg/build/bin
+	set(pkg_inc_dirs                            #pkg_inc_dirs is a list
+		${pkg_root_dir}/spdlog/include 
+		${pkg_root_dir}/crossguid/include
+	)
 
-	message(pkg_dir="${pkg_dir}")
-	message(pkg_lib_dir="${pkg_lib_dir}")
-	message(pkg_bin_dir="${pkg_bin_dir}")
-	message(pkg_inc_dirs="${pkg_inc_dirs}")
+	message(pkg_root_dir=${pkg_root_dir})
+	message(pkg_lib_dir=${pkg_lib_dir})
+	message(pkg_bin_dir=${pkg_bin_dir})
+	#message(pkg_inc_dirs="${pkg_inc_dirs}")  #does not work
+	message("pkg_inc_dirs=${pkg_inc_dirs}")  #this is the only right way to print a list
 endif()
 
 add_subdirectory(libLog)
-#add_subdirectory(libUtil)
-#add_subdirectory(libCapture)
-#add_subdirectory(libProcess)
-#add_subdirectory(app1)
-#add_subdirectory(app2)
-############ eof ##############
+add_subdirectory(libUtil)
+add_subdirectory(libCapture)
+add_subdirectory(libProcess)
+add_subdirectory(app1)
+add_subdirectory(app2)
+message("\n END: src/CMakeLists.txt")
 
 

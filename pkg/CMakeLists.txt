@@ -29,9 +29,9 @@ message(STATUS ${CMAKE_BUILD_TYPE})
 #global variables: top level defined variables can be see by all subfolders
 ########################################################################
 message("\nin pkg/CMakeLists: ")
-if(NOT DEFINED pkg_dir)
-    set(pkg_dir "${CMAKE_CURRENT_SOURCE_DIR}")
-    message(pkg_dir="${pkg_dir}")
+if(NOT DEFINED pkg_root_dir)
+    set(pkg_root_dir "${CMAKE_CURRENT_SOURCE_DIR}")
+    message(pkg_root_dir="${pkg_root_dir}")
 endif()
 
 if(NOT DEFINED pkg_lib_dir)

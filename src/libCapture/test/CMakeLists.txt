@@ -51,7 +51,7 @@ target_include_directories(${target} PUBLIC
 	)
 
 target_link_directories(${target} PUBLIC
-	${app_lib_dir}
+	${src_lib_dir}
 	${pkg_lib_dir}
 )
 
