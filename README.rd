@@ -7,24 +7,23 @@ This tutorial shows how to organize a large c++ project and build it by cmake wi
 ## Top level folder structure
 ```
 howToOrgCppProj/
+              data/      			#the test data folder
               doc/      			#the doumentation 
-              ref/      			#references
               pkg/    			   	#the third party packages
                   pkgA/			   	#package A (we cannot control its folder strcture)
                   ...
                   pkgX/            	#package X (we cannot control its folder strcture)
-              src/                 	#our in-house developed source code
+              src/                 	#our developed source code
                     libA/          	#library A
                        src/        	#cpp files
                        include/    	#headers
                        test/       	#unit test stuff
                     ...
                     libX/          	#library X
-                         (same folder structure as that in libX)
+                         (same folder structure as that in libA)
                     appA/          	#executable application A
                        src/        	#source code
                        cfg/        	#configuration files
-                       data/       	#test data fodler
                     ...
                     appX/          	#executable application X
                          (same folder structure as that in appA)
@@ -37,10 +36,12 @@ howToOrgCppProj/
 						lib/		#the libs: libA.a, ..., libX.a 
 						bin/		#the binaries: appA, appB, ...
 						...         #cmake related intermediate files/folders 					                       					
-              build-vs2019/   		#specific building folder for vs2019
-                          (same folder structure as that in build/)
               build-jetson/   		#specific building folder for jetson
                           (same folder structure as that in build/)
+              build-vs2019/   	    #specific building folder for vs2019 in windows
+                          /int          //intermediate building results
+                          /Debug        //lib and exe for debug
+                          /Release      //lib and exe for release
 ```
 ## CMake build philosophy 
 We support both top-down and bottom-up build approaches, and ***do not copy*** any headers into our output building folders.   In another words, there is ***one and only one copy of a header file ***  in howToOrgCppProj/ folder.
@@ -80,8 +81,9 @@ In the process of building our own modules in ***howToOrgCppProj/src***, we may 
 For modules in howToOrgCppProj/src/,   when you build libX, we assume that all its dependences  were built and the building results are located at: 
 ```
 howToOrgCppProj/build/src
-						lib/   #libA.a, ..., libW.a
+						lib/   #libA.a, ..., libY.a
 						bin/   #some test bininaries
 
 ```
+If the dependence of  libX is not available,  an error  message will be prompted.
 --------- eof-----------
