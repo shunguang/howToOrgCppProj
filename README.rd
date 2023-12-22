@@ -25,18 +25,13 @@ howToOrgCppProj/
                     appA/          	#executable application A
                        src/        	#source code
                        cfg/        	#configuration files
-                    ...
+                      ...
                     appX/          	#executable application X
                          (same folder structure as that in appA)
-              build/				#building folder in general
-                    pkg/			#build results of the pkgs
-						lib/		#the libs: libpkgA.a, ..., libpkgX.a
-						bin/		#the binaries: test_pkgA, ...
-						...         #cmake related intermediate files/folders 					                       
-                    src/			#build results of the pkgs
-						lib/		#the libs: libA.a, ..., libX.a 
-						bin/		#the binaries: appA, appB, ...
-						...         #cmake related intermediate files/folders 					                       					
+              build/			#building folder in general
+			lib/		#the libs: libpkgA.a, ..., libpkgX.a
+			bin/		#the binaries: test_pkgA, ...
+			...         #cmake related intermediate files/folders 					                       
               build-jetson/   		#specific building folder for jetson
                           (same folder structure as that in build/)
               build-vs2019/   	    #specific building folder for vs2019 in windows
@@ -50,11 +45,11 @@ We support both top-down and bottom-up build approaches, and ***do not copy*** a
 Go to project root folder: howToOrgCppProj/ 
 ```
     howToOrgCppProj$ mkdir build && cd build \
-    howToOrgCppProj/build$ cmake -DAPPLOG_TESTS=1 ../ 
+    howToOrgCppProj/build$ cmake -DBUILD_LOG_TESTS=1 ../ 
 ```
 The building results will be located at:
 ```
-    howToOrgCppProj/build/lib           #hold the static/dynamic libs
+    howToOrgCppProj/build/lib          #hold the static/dynamic libs
     howToOrgCppProj/build/bin          #the hold the binaries
 ```
 ### bottom-up
@@ -71,17 +66,17 @@ The building results will be located at:
 Moreover, in the bottom-up building approach, the building order matters.  We assume you build the packages in howToOrgCppProj/pkg/ first,  then either automatically or manually  copy them into 
 ```
 howToOrgCppProj/build/
-					lib/   #libpkgA.a, ..., libpkgX.a
-					bin/   #some test bininaries from pkgs
+ 		     lib/   #libpkgA.a, ..., libpkgX.a
+		     bin/   #some test bininaries from pkgs
 
 ```
-In the process of building our own modules in ***howToOrgCppProj/src***, we may link them from ***howToOrgCppProj/build/pkg***.
+In the process of building our own modules in ***howToOrgCppProj/src***, we may link them from ***howToOrgCppProj/build/lib***.
 
 For modules in howToOrgCppProj/src/,   when you build libX, we assume that all its dependences  were built and the building results are located at: 
 ```
 howToOrgCppProj/build/
-					lib/   #libA.a, ..., libY.a
-					bin/   #some test bininaries
+			lib/   #libA.a, ..., libY.a
+			bin/   #some test bininaries
 
 ```
 If the dependence of  libX is not available,  an error  message will be prompted.
