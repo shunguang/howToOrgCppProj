@@ -1,10 +1,17 @@
 message("\n BEG: src/CMakeLists.txt")
+
+#######################################################################
+#  include macro and functions if have any
+########################################################################
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
+include(helper_macros)
+
 ########################################################################
 #  set required versions
 ########################################################################
-if(NOT DEFINED set_versions)
-	list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
-	find_package(SetVersions REQUIRED)
+if(NOT DEFINED set_required_vers_done)
+	set_required_vers()
+	print_required_vers()
 endif()
 
 ########################################################################
@@ -25,5 +32,4 @@ add_subdirectory(libProcess)
 add_subdirectory(app1)
 add_subdirectory(app2)
 message("\n END: src/CMakeLists.txt")
-
 

@@ -3,18 +3,19 @@ message("\n BEG: howToOrgCppProj/CMakeLists.txt")
 #  The Topest Setup
 ########################################################################
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-find_package(SetVersions REQUIRED)
+include(helper_macros)
+
+set_required_vers()
+print_required_vers()
 
 cmake_minimum_required(VERSION ${required_cmake_ver}) 
 project(howToOrgCppProj LANGUAGES CXX C)
+set(CMAKE_CXX_STANDARD ${required_cxx_ver})
+
 
 ########################################################################
-# Build options
-########################################################################
-option(BUILD_SHARED_LIBS "Build using shared libraries" OFF) 
-
-########################################################################
-# print out our flags
+# print flags set by cmake command: 
+# >cmake ../
 ########################################################################
 message(ENABLE_CUDA="${ENABLE_CUDA}")
 message(ENABLE_TEST="${ENABLE_TEST}")
@@ -25,21 +26,17 @@ else()
 endif()
 
 ########################################################################
-#  Set CMAKE_MODULE_PATH
+# call macros and print params
 ########################################################################
-message(CMAKE_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
-message(CMAKE_CURRENT_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
-message(CMAKE_BINARY_DIR="${CMAKE_BINARY_DIR}")
+set_build_params()
+print_build_params()
 
+set_build_dirs()
+print_build_dirs()
 
 ########################################################################
 # Find packages
 ########################################################################
-find_package(HowToOrgCppProj REQUIRED)
-if (NOT HowToOrgCppProj_FOUND)
-    message(FATAL_ERROR "cannot locate HowToOrgCppProj")
-endif()
-
 find_package(OurBoost REQUIRED)
 if (NOT Boost_FOUND)
     message(FATAL_ERROR "Cannot find boost, uou might need to run 'sudo apt-get install boost' or similar")
@@ -50,7 +47,6 @@ if(NOT GTest_FOUND)
     message(FATAL_ERROR "canor find google test")
 endif(NOT GTest_FOUND)
 
-find_package(SetCfg REQUIRED)
 
 ########################################################################
 # Compiler specific setup

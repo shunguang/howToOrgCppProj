@@ -7,6 +7,7 @@ This tutorial shows how to organize a large c++ project and build it by cmake wi
 ## Top level folder structure
 ```
 howToOrgCppProj/
+              cmake/      			#the cmake scripts folder
               data/      			#the test data folder
               doc/      			#the doumentation 
               pkg/    			   	#the third party packages

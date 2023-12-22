@@ -1,10 +1,16 @@
 message("\n BEG: src/app2/CMakeLists.txt")
 #######################################################################
-#  set required versions
+#  include macro and functions if have any
 ########################################################################
-if(NOT DEFINED set_versions)
-	list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
-	find_package(SetVersions REQUIRED)
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
+include(helper_macros)
+
+########################################################################
+#  set required versions if need
+########################################################################
+if(NOT DEFINED set_required_vers_done)
+	set_required_vers()
+	print_required_vers()
 endif()
 
 ########################################################################
@@ -18,17 +24,14 @@ set(CMAKE_CXX_STANDARD ${required_cxx_ver})
 ########################################################################
 #  set building parameters
 ########################################################################
-list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
-find_package(SetCfg REQUIRED)
-
-########################################################################
-#  set output dirs
-########################################################################
-if(DEFINED build_dir)
-   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${build_lib_dir}")   
-   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${build_lib_dir}")
-   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${build_bin_dir}")
+set_build_params()
+if( NOT DEFINED  set_build_dirs_done)
+   set_build_dirs(${CMAKE_CURRENT_BINARY_DIR})
+   print_build_dirs()
 endif()
+
+set_output_dirs()
+print_output_dirs()
 
 ########################################################################
 # Create the cloudGeoUtil Library
@@ -46,7 +49,7 @@ target_include_directories(${target} PUBLIC
 )
 
 target_link_directories( ${target} PUBLIC
-	${pkg_lib_dir}    #build/pkg/lib
+	${pkg_lib_dir}    #howToOrgCppProj/build/lib
 	${build_lib_dir}  #build/lib
 )
 
