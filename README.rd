@@ -67,15 +67,14 @@ Moreover, in the bottom-up building approach, the building order matters.  We as
 howToOrgCppProj/build/
 		 		     lib/   #libpkgA.a, ..., libpkgX.a
 				     bin/   #some test bininaries from pkgs
-
 ```
 In the process of building our own modules in ***howToOrgCppProj/src***, we may link them from ***howToOrgCppProj/build/lib***.
 
 For modules in howToOrgCppProj/src/,   when you build libX, we assume that all its dependences  were built and the building results are located at: 
 ```
 howToOrgCppProj/build/
-					lib/   #libA.a, ..., libY.a
-					bin/   #some test bininaries
+			lib/   #libA.a, ..., libY.a
+			bin/   #some test bininaries
 
 ```
 If the dependence of  libX is not available,  an error  message will be prompted.
