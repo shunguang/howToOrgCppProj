@@ -1,3 +1,5 @@
+
+
 function(SET_TOP_DIRS)
 	find_path(
 		HOW_TO_ORG_CPP_PROJ_ROOT_DIR
@@ -34,11 +36,11 @@ cmake_minimum_required(VERSION 3.22)
 
 set_top_dirs()
 
-message(pkg_root_dir="${pkg_root_dir}")
-message(src_root_dir="${src_root_dir}")
+message(pkg_dir="${pkg_dir}")
+message(src_dir="${src_dir}")
 message(pkg_lib_dir="${pkg_lib_dir}")
 message(pkg_bin_dir="${pkg_bin_dir}")
-message(src_lib_dir="${src_lib_dir}")
-message(src_bin_dir="${src_bin_dir}")
+message(build_lib_dir="${build_lib_dir}")
+message(build_bin_dir="${build_bin_dir}")
 message(pkg_inc_dirs="${pkg_inc_dirs}")
 

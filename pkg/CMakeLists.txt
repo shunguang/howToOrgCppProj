@@ -29,25 +29,13 @@ message(STATUS ${CMAKE_BUILD_TYPE})
 #global variables: top level defined variables can be see by all subfolders
 ########################################################################
 message("\nin pkg/CMakeLists: ")
-if(NOT DEFINED pkg_root_dir)
-    set(pkg_root_dir "${CMAKE_CURRENT_SOURCE_DIR}")
-    message(pkg_root_dir="${pkg_root_dir}")
-endif()
-
-if(NOT DEFINED pkg_lib_dir)
-    set(pkg_lib_dir "${PROJECT_BINARY_DIR}/lib")
-    message(pkg_lib_dir="${pkg_lib_dir}")
-endif()
-
-if(NOT DEFINED pkg_bin_dir)
-    set(pkg_bin_dir "${PROJECT_BINARY_DIR}/bin")
-    message(pkg_bin_dir="${pkg_bin_dir}")
-endif()
 
 message("\ngoing to pkg/crossguid/CMakeLists: ")
 add_subdirectory(crossguid)
 
-#message("going to pkg/xyz/CMakeLists: ")
+#message("\ngoing to pkg/xyz/CMakeLists: ")
 #add_other_subdirectory(xyz)
+
+message("\nout pkg/CMakeLists: ")
 
 

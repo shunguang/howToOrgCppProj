@@ -53,10 +53,8 @@ Go to project root folder: howToOrgCppProj/
 ```
 The building results will be located at:
 ```
-    howToOrgCppProj/build/pkg/lib/           #hold the static/dynamic libs  from pkg side 
-    howToOrgCppProj/build/pkg/bin/           #the hold the binaries  from pkg side 
-    howToOrgCppProj/build/src/lib/           #hold the static/dynamic libs from src side 
-    howToOrgCppProj/build/src/bin/           #hold the binaires from src side 
+    howToOrgCppProj/build/lib           #hold the static/dynamic libs
+    howToOrgCppProj/build/bin          #the hold the binaries
 ```
 ### bottom-up
 For debug and development purpose, we also support build an individual lib and its tests. General speaking whenever there is a CMakeLists.txt in folder X/ you can do:
@@ -71,18 +69,18 @@ The building results will be located at:
 ```
 Moreover, in the bottom-up building approach, the building order matters.  We assume you build the packages in howToOrgCppProj/pkg/ first,  then either automatically or manually  copy them into 
 ```
-howToOrgCppProj/build/pkg
-						lib/   #libpkgA.a, ..., libpkgX.a
-						bin/   #some test bininaries from pkgs
+howToOrgCppProj/build/
+					lib/   #libpkgA.a, ..., libpkgX.a
+					bin/   #some test bininaries from pkgs
 
 ```
 In the process of building our own modules in ***howToOrgCppProj/src***, we may link them from ***howToOrgCppProj/build/pkg***.
 
 For modules in howToOrgCppProj/src/,   when you build libX, we assume that all its dependences  were built and the building results are located at: 
 ```
-howToOrgCppProj/build/src
-						lib/   #libA.a, ..., libY.a
-						bin/   #some test bininaries
+howToOrgCppProj/build/
+					lib/   #libA.a, ..., libY.a
+					bin/   #some test bininaries
 
 ```
 If the dependence of  libX is not available,  an error  message will be prompted.

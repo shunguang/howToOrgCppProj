@@ -51,8 +51,7 @@ target_include_directories(${target} PUBLIC
 	)
 
 target_link_directories(${target} PUBLIC
-	${src_lib_dir}
-	${pkg_lib_dir}
+	${build_lib_dir}
 )
 
 ########################################################################

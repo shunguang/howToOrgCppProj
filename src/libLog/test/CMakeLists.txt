@@ -21,27 +21,27 @@ project(${target} LANGUAGES CXX C)
 set(CMAKE_CXX_STANDARD ${required_cxx_ver})
 
 ########################################################################
-# figure out pkg_root_dir which will be used as a reference of install folder:
+# figure out pkg_dir which will be used as a reference of install folder:
 #  pkg/install/lib/
 ########################################################################
 if(NOT DEFINED pkg_inc_dirs)
    message( FATAL_ERROR "pkg_inc_dirs is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
 endif()
-if(NOT DEFINED src_root_dir)
-   message( FATAL_ERROR "src_root_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
+if(NOT DEFINED src_dir)
+   message( FATAL_ERROR "src_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
 endif()
-if(NOT DEFINED src_lib_dir)
-   message( FATAL_ERROR "src_lib_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
+if(NOT DEFINED build_lib_dir)
+   message( FATAL_ERROR "build_lib_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
 endif()
-if(NOT DEFINED src_bin_dir)
-   message( FATAL_ERROR "src_bin_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
+if(NOT DEFINED build_bin_dir)
+   message( FATAL_ERROR "build_bin_dir is not defined, you need to run libLog/CMakeList.txt with -DAPPLOG_TESTS=1")
 endif()
 
 # CMAKE_ARCHIVE_OUTPUT_DIRECTORY control the output dir of static libs
 # CMAKE_LIBRARY_OUTPUT_DIRECTORY control the output dir of dynamic/dll libs
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${src_lib_dir}")   
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${src_lib_dir}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${src_bin_dir}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${build_lib_dir}")   
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${build_lib_dir}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${build_bin_dir}")
 
 ########################################################################
 # Select the release build type by default to get optimization flags
@@ -68,14 +68,14 @@ add_executable(${target}
 	)
 
 message("pkg_inc_dirs=${pkg_inc_dirs}") 
-message(src_root_dir="${src_root_dir}")
+message(src_dir="${src_dir}")
 target_include_directories(${target} PUBLIC
    ${pkg_inc_dirs}
-   ${src_root_dir}
+   ${src_dir}
 )
 
 target_link_directories(${target} PUBLIC
-   ${src_lib_dir}
+   ${build_lib_dir}
    )
 
 target_link_libraries(${target} PUBLIC
